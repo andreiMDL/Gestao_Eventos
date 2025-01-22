@@ -1,11 +1,15 @@
 package br.com.gestao_eventos.gestao_eventos.modules.empresa;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +18,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -27,7 +34,7 @@ public class EventoEntity {
 
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Insira uma opção válida: [CASAMENTO, ANIVERSARIO, NOIVADO, CHURRASCO, FESTA_FORMATURA, FESTA_QUINZE_ANOS, HAPPY_HOUR]")
+    @NotNull(message = "Insira uma opção válida: [CASAMENTO, ANIVERSARIO, NOIVADO, CHURRASCO, FESTA_FORMATURA, FESTA_QUINZE_ANOS, HAPPY_HOUR]")
     private EventType tipoEvento;
 
     public enum EventType {
@@ -41,7 +48,7 @@ public class EventoEntity {
     }
 
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Insira uma opção válida: [CHURRASCO, PIZZAS, HAMBURGUERES, SUSHI, FRIOS, SORVETES, BEBIDAS_ALCOOLICAS, BEBIDAS_NAO_ALCOOLICAS, COMPLETO]")
+    @NotNull(message = "Insira uma opção válida: [CHURRASCO, PIZZAS, HAMBURGUERES, SUSHI, FRIOS, SORVETES, BEBIDAS_ALCOOLICAS, BEBIDAS_NAO_ALCOOLICAS, COMPLETO]")
     private BuffetType tipoBuffet;
 
     public enum BuffetType {
@@ -56,12 +63,28 @@ public class EventoEntity {
         COMPLETO
     }
 
-    @NotBlank
+    @NotBlank(message = "O campo [location] não pode ser vazio")
     private String location;
+
+    @NotBlank(message = "O campo [data] não pode ser vazio")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
+
+    @NotBlank(message = "O campo [horario] não pode ser vazio")
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime horario;
+    
+    @ManyToOne()
+    @JoinColumn(name = "empresa_id")
+    private EmpresaEntity empresaEntity;
+
+    @Column(name = "empresa_id")
+    private UUID empresaId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 }
