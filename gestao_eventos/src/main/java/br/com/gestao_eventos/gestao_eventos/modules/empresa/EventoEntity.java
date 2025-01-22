@@ -1,14 +1,20 @@
-package br.com.gestao_eventos.gestao_eventos.modules.evento;
+package br.com.gestao_eventos.gestao_eventos.modules.empresa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -19,18 +25,24 @@ public class EventoEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    // definindo tipos de eventos
+
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Insira uma opção válida: [CASAMENTO, ANIVERSARIO, NOIVADO, CHURRASCO, FESTA_FORMATURA, FESTA_QUINZE_ANOS, HAPPY_HOUR]")
+    private EventType tipoEvento;
+
     public enum EventType {
         CASAMENTO,
         ANIVERSARIO,
         NOIVADO,
         CHURRASCO,
         FESTA_FORMATURA,
+        FESTA_QUINZE_ANOS,
         HAPPY_HOUR
     }
 
-    private EventType[] eventCategories = { EventType.CASAMENTO, EventType.ANIVERSARIO, EventType.NOIVADO,
-            EventType.CHURRASCO, EventType.FESTA_FORMATURA, EventType.HAPPY_HOUR };
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Insira uma opção válida: [CHURRASCO, PIZZAS, HAMBURGUERES, SUSHI, FRIOS, SORVETES, BEBIDAS_ALCOOLICAS, BEBIDAS_NAO_ALCOOLICAS, COMPLETO]")
+    private BuffetType tipoBuffet;
 
     public enum BuffetType {
         CHURRASCO,
@@ -44,9 +56,8 @@ public class EventoEntity {
         COMPLETO
     }
 
-    private BuffetType[] buffetCategories = { BuffetType.CHURRASCO, BuffetType.PIZZAS, BuffetType.BEBIDAS_ALCOOLICAS,
-            BuffetType.BEBIDAS_NAO_ALCOOLICAS, BuffetType.HAMBURGUERES, BuffetType.SUSHI, BuffetType.SORVETES,
-            BuffetType.FRIOS, BuffetType.COMPLETO };
+    @NotBlank
+    private String location;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

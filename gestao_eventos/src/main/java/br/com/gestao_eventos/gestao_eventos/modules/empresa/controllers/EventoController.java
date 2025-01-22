@@ -1,11 +1,11 @@
-package br.com.gestao_eventos.gestao_eventos.modules.evento.controllers;
+package br.com.gestao_eventos.gestao_eventos.modules.empresa.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gestao_eventos.gestao_eventos.modules.evento.EventoEntity;
+import br.com.gestao_eventos.gestao_eventos.modules.empresa.EventoEntity;
 import jakarta.validation.Valid;
 
 @RestController

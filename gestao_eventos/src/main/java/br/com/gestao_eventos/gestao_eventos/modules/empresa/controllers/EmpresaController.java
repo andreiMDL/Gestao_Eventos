@@ -1,6 +1,7 @@
 package br.com.gestao_eventos.gestao_eventos.modules.empresa.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteRepository;
 import br.com.gestao_eventos.gestao_eventos.modules.empresa.EmpresaEntity;
 import br.com.gestao_eventos.gestao_eventos.modules.empresa.EmpresaRepository;
+import br.com.gestao_eventos.gestao_eventos.modules.empresa.useCases.CreateEmpresaUseCase;
 import jakarta.validation.Valid;
 
 @RestController
@@ -16,10 +18,15 @@ import jakarta.validation.Valid;
 public class EmpresaController {
 
       @Autowired
-      private EmpresaRepository empresaRepository;
+      private CreateEmpresaUseCase createEmpresaUseCase;
 
       @PostMapping("/")
-      public EmpresaEntity create(@Valid @RequestBody EmpresaEntity empresaEntity) {
-            return this.empresaRepository.save(empresaEntity);
+      public ResponseEntity<Object> create(@Valid @RequestBody EmpresaEntity empresaEntity) {
+            try {
+            var result = this.createEmpresaUseCase.execute(empresaEntity);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
       }
 }
