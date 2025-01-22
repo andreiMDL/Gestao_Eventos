@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gestao_eventos.gestao_eventos.exceptions.UserFoundException;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteEntity;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteRepository;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.entities.ClienteEntity;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.repositories.ClienteRepository;
 
 @Service
 public class CreateClienteUseCase {

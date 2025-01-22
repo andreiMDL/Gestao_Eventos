@@ -1,4 +1,4 @@
-package br.com.gestao_eventos.gestao_eventos.modules.empresa;
+package br.com.gestao_eventos.gestao_eventos.modules.empresa.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -66,20 +66,18 @@ public class EventoEntity {
     @NotBlank(message = "O campo [location] não pode ser vazio")
     private String location;
 
-    @NotBlank(message = "O campo [data] não pode ser vazio")
+    @NotNull(message = "O campo [data] não pode ser vazio")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
-    @NotBlank(message = "O campo [horario] não pode ser vazio")
+    @NotNull(message = "O campo [horario] não pode ser vazio")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horario;
     
     @ManyToOne()
-    @JoinColumn(name = "empresa_id")
+    @JoinColumn(name = "empresa_id", nullable = false, updatable = false)
     private EmpresaEntity empresaEntity;
 
-    @Column(name = "empresa_id")
-    private UUID empresaId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

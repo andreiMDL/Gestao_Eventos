@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteRepository;
-import br.com.gestao_eventos.gestao_eventos.modules.empresa.EmpresaEntity;
-import br.com.gestao_eventos.gestao_eventos.modules.empresa.EmpresaRepository;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.repositories.ClienteRepository;
+import br.com.gestao_eventos.gestao_eventos.modules.empresa.entities.EmpresaEntity;
+import br.com.gestao_eventos.gestao_eventos.modules.empresa.repositories.EmpresaRepository;
 import br.com.gestao_eventos.gestao_eventos.modules.empresa.useCases.CreateEmpresaUseCase;
 import jakarta.validation.Valid;
 

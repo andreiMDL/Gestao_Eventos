@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gestao_eventos.gestao_eventos.exceptions.UserFoundException;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteEntity;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.ClienteRepository;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.entities.ClienteEntity;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.repositories.ClienteRepository;
 import br.com.gestao_eventos.gestao_eventos.modules.cliente.useCases.CreateClienteUseCase;
 import jakarta.validation.Valid;
 
