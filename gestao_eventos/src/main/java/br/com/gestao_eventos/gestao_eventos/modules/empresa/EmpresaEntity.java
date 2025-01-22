@@ -27,7 +27,7 @@ public class EmpresaEntity {
         message = "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e pelo menos um caracter especial.")
     private String password;
 
-    @CNPJ(message = "O campo deve conter um CNPJ válido")
+    // @CNPJ(message = "O campo deve conter um CNPJ válido")
     private String cnpj;
 
     @Email(message = "O campo deve conter um email válido")
