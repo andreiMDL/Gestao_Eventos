@@ -5,12 +5,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,65 +21,68 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+
 @Data
 @Entity(name = "evento")
 public class EventoEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+@Id
+@GeneratedValue(strategy = GenerationType.UUID)
+private UUID id;
+
+@ManyToOne()
+@JoinColumn(name = "empresa_id", nullable = false, updatable = false)
+private EmpresaEntity empresaEntity;
+
+@Column(name = "empresa_id")
+private UUID empresaId;
 
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Insira uma opção válida: [CASAMENTO, ANIVERSARIO, NOIVADO, CHURRASCO, FESTA_FORMATURA, FESTA_QUINZE_ANOS, HAPPY_HOUR]")
-    private EventType tipoEvento;
+@Enumerated(EnumType.STRING)
+@NotNull(message = "Insira uma opção válida: [CASAMENTO, ANIVERSARIO, NOIVADO, CHURRASCO, FESTA_FORMATURA, FESTA_QUINZE_ANOS, HAPPY_HOUR]")
+private EventType tipoEvento;
 
-    public enum EventType {
-        CASAMENTO,
-        ANIVERSARIO,
-        NOIVADO,
-        CHURRASCO,
-        FESTA_FORMATURA,
-        FESTA_QUINZE_ANOS,
-        HAPPY_HOUR
-    }
+public enum EventType {
+CASAMENTO,
+ANIVERSARIO,
+NOIVADO,
+CHURRASCO,
+FESTA_FORMATURA,
+FESTA_QUINZE_ANOS,
+HAPPY_HOUR
+}
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Insira uma opção válida: [CHURRASCO, PIZZAS, HAMBURGUERES, SUSHI, FRIOS, SORVETES, BEBIDAS_ALCOOLICAS, BEBIDAS_NAO_ALCOOLICAS, COMPLETO]")
-    private BuffetType tipoBuffet;
+@Enumerated(EnumType.STRING)
+@NotNull(message = "Insira uma opção válida: [CHURRASCO, PIZZAS, HAMBURGUERES, SUSHI, FRIOS, SORVETES, BEBIDAS_ALCOOLICAS, BEBIDAS_NAO_ALCOOLICAS, COMPLETO]")
+private BuffetType tipoBuffet;
 
-    public enum BuffetType {
-        CHURRASCO,
-        PIZZAS,
-        BEBIDAS_ALCOOLICAS,
-        BEBIDAS_NAO_ALCOOLICAS,
-        HAMBURGUERES,
-        SUSHI,
-        SORVETES,
-        FRIOS,
-        COMPLETO
-    }
+public enum BuffetType {
+CHURRASCO,
+PIZZAS,
+BEBIDAS_ALCOOLICAS,
+BEBIDAS_NAO_ALCOOLICAS,
+HAMBURGUERES,
+SUSHI,
+SORVETES,
+FRIOS,
+COMPLETO
+}
 
-    @NotBlank(message = "O campo [location] não pode ser vazio")
-    private String location;
+@NotBlank(message = "O campo [location] não pode ser vazio")
+private String location;
 
-    @NotNull(message = "O campo [data] não pode ser vazio")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data;
+@NotNull(message = "O campo [data] não pode ser vazio")
+@JsonFormat(pattern = "dd/MM/yyyy")
+private LocalDate data;
 
-    @NotNull(message = "O campo [horario] não pode ser vazio")
-    @JsonFormat(pattern = "HH:mm")
-    private LocalTime horario;
-    
-    @ManyToOne()
-    @JoinColumn(name = "empresa_id", nullable = false, updatable = false)
-    private EmpresaEntity empresaEntity;
+@NotNull(message = "O campo [horario] não pode ser vazio")
+@JsonFormat(pattern = "HH:mm")
+private LocalTime horario;
 
+@CreationTimestamp
+private LocalDateTime createdAt;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+@UpdateTimestamp
+private LocalDateTime updatedAt;
 
 }

@@ -21,6 +21,7 @@ public class EmpresaEntity {
     @Id 
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    
     private String name;
 
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,}$",
