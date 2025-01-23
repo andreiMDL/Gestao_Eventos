@@ -7,23 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gestao_eventos.gestao_eventos.exceptions.UserFoundException;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.entities.ClienteEntity;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.repositories.ClienteRepository;
-import br.com.gestao_eventos.gestao_eventos.modules.cliente.useCases.CreateClienteUseCase;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.entities.ClientEntity;
+import br.com.gestao_eventos.gestao_eventos.modules.cliente.useCases.CreateClientUseCase;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteController {
-    
+@RequestMapping("/client")
+public class ClientController {
+
     @Autowired
-    private CreateClienteUseCase createClienteUseCase;
+    private CreateClientUseCase createClientUseCase;
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@Valid @RequestBody ClienteEntity clienteEntity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody ClientEntity clientEntity) {
         try {
-            var result = this.createClienteUseCase.execute(clienteEntity);
+            var result = this.createClientUseCase.execute(clientEntity);
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
