@@ -69,7 +69,6 @@ public class EventEntity {
     private String location;
 
     @NotNull(message = "O campo [date] não pode ser vazio")
-    // @DateTimeFormat(pattern = "DD-MM-YYYY")
     private Date date;
 
     @NotNull(message = "O campo [time] não pode ser vazio")
@@ -80,7 +79,7 @@ public class EventEntity {
     @JoinColumn(name = "company_id", insertable = false, updatable = false) 
     private CompanyEntity companyEntity;
 
-    @Column(name = "company_id")
+    @Column(name = "company_id", nullable = false)
     private UUID companyId;
 
     @CreationTimestamp
